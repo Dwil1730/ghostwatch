@@ -1,0 +1,93 @@
+import threading
+
+from src.core.probe_engine import execute_probes
+from src.core.job_store import update_job
+
+from src.analyzers.response_analyzer import analyze_response
+from src.reporting.evidence import build_evidence
+from src.reporting.executive_report import build_executive_report
+
+
+def run_scan(job_id: str, target: str):
+    update_job(job_id, status="running")
+
+    try:
+        # -------------------------
+        # 1. Run raw probe execution
+        # -------------------------
+        raw_results = execute_probes(target_name=target)
+
+        # -------------------------
+        # 2. Normalize + analyze results
+        # -------------------------
+        normalized_results = []
+
+        for r in raw_results:
+            analyzed = analyze_response(r)
+            normalized_results.append(analyzed)
+
+        # -------------------------
+        # 3. Build audit-grade evidence chain
+        # -------------------------
+        evidence = build_evidence([
+            {
+                "payload": getattr(r, "payload", ""),
+                "raw_response": getattr(r, "raw_response", ""),
+                "risk_score": getattr(r, "risk_score", 0),
+                "indicators": getattr(r, "indicators", [])
+            }
+            for r in normalized_results
+        ])
+
+        # -------------------------
+        # 4. Build executive report
+        # -------------------------
+        executive_report = build_executive_report({
+            "evidence": evidence
+        })
+
+        # -------------------------
+        # 5. Final audit packet (client-ready object)
+        # -------------------------
+        final_result = {
+            "target": target,
+            "status": "completed",
+
+            "probe_results": [
+                r.__dict__ if hasattr(r, "__dict__") else r
+                for r in normalized_results
+            ],
+
+            "evidence": evidence,
+            "executive_report": executive_report
+        }
+
+        # -------------------------
+        # 6. Persist result in job store
+        # -------------------------
+        update_job(
+            job_id,
+            status="completed",
+            result=final_result
+        )
+
+    except Exception as e:
+        update_job(
+            job_id,
+            status="failed",
+            result={
+                "error": str(e),
+                "stage": "scan_execution"
+            }
+        )
+
+
+def start_background_job(job_id: str, target: str):
+    thread = threading.Thread(
+        target=run_scan,
+        args=(job_id, target),
+        daemon=True
+    )
+    thread.start()
+clear
+

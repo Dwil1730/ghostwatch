@@ -1,0 +1,2 @@
+[console_scripts]
+ghostwatch = src.core.cli:app
