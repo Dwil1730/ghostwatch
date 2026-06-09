@@ -42,7 +42,14 @@ def run_scan(filter_type=None, url=None, method="POST"):
                 "detection_status": "vulnerable" if analyzed["is_vulnerable"] else "safe",
             })
 
-        vulnerable = [r for r in results if r["detection_status"] == "vulnerable"]
+        seen = set()
+vulnerable = []
+for r in results:
+    if r["detection_status"] == "vulnerable":
+        key = r["probe_type"] + r["severity"]
+        if key not in seen:
+            seen.add(key)
+            vulnerable.append(r)
         errors     = [r for r in results if r["detection_status"] == "error"]
         safe       = [r for r in results if r["detection_status"] == "safe"]
 
