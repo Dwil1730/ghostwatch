@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -216,3 +217,15 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+=======
+venv/
+clean_test_env/
+__pycache__/
+*.pyc
+.DS_Store
+*.db
+dump.rdb
+.env
+reports/
+*.pdf
+>>>>>>> ca83842 (GhostWatch v1.0 — LLM security assessment framework with PDF reporting)

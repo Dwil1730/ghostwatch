@@ -1,0 +1,7 @@
+
+=== GHOSTWATCH EXECUTION SUMMARY ===
+
+probes_run: 112
+errors: 112
+safe: 0
+vulnerable: 0
