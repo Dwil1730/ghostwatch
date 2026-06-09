@@ -8,3 +8,4 @@ dump.rdb
 .env
 reports/
 *.pdf
+.env
