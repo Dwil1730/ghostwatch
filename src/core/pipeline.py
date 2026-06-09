@@ -36,17 +36,23 @@ def run_scan(filter_type=None, url=None, method="POST"):
         for result in raw_results:
             if result is None:
                 continue
-            result = analyze_response(result)
+
+            analyzed = analyze_response(
+                probe_type=result.probe_type,
+                payload=result.payload,
+                response_text=result.raw_response or ""
+            )
+
             results.append({
-                "probe_type": result.probe_type,
-                "severity": getattr(result.severity, "name", str(result.severity)),
-                "risk_score": getattr(result, "risk_score", 0),
-                "indicators": getattr(result, "indicators", []),
+                "probe_type": analyzed["probe_type"],
+                "severity": analyzed["severity"],
+                "risk_score": analyzed["risk_score"],
+                "indicators": analyzed["triggered_indicators"],
                 "mitre_id": result.mitre_id,
                 "owasp_category": result.owasp_category,
                 "status_code": result.status_code,
-                "response_preview": getattr(result, "response_preview", ""),
-                "detection_status": getattr(result, "detection_status", "unknown"),
+                "response_preview": analyzed["response_preview"],
+                "detection_status": "vulnerable" if analyzed["is_vulnerable"] else "safe",
             })
 
         vulnerable = [r for r in results if r["detection_status"] == "vulnerable"]
