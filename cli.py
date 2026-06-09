@@ -23,11 +23,14 @@ def stats():
 
 
 @app.command()
-def run(filter_type: Optional[str] = None):
+def run(
+    filter_type: Optional[str] = None,
+    url: Optional[str] = typer.Option(None, "--url", help="Target URL to scan"),
+):
     """Execute full scan and print professional summary."""
     console.print("\n[bold]GHOSTWATCH SECURITY SCAN[/bold]\n")
 
-    result = run_scan(filter_type=filter_type)
+    result = run_scan(filter_type=filter_type, url=url)
 
     if result["status"] != "ok":
         console.print(f"[red]Scan failed:[/red] {result['errors']}")
