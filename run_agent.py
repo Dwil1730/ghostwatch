@@ -1,6 +1,8 @@
 import os
 import sys
 import anthropic
+from dotenv import load_dotenv
+load_dotenv()
 from src.core.pipeline import run_scan
 
 client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
