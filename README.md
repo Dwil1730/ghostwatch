@@ -1,30 +1,29 @@
-# GhostWatch
+# GhostWatch 👻
 
-Adversarial LLM security assessment framework — tests prompt injection, jailbreaks, and system prompt leakage with MITRE ATT&CK mapping and executive PDF reporting.
+**AI-powered LLM security scanner** — automatically probes AI APIs for vulnerabilities and generates risk-scored reports.
 
-## What it tests
-- Prompt Injection (MITRE AML.T0051 / OWASP LLM01)
-- Jailbreaks (MITRE AML.T0054 / OWASP LLM01)
-- System Prompt Leakage (MITRE AML.T0056 / OWASP LLM07)
-- Payload Reflection
+## What It Does
+GhostWatch runs 30+ security probes against any LLM-powered endpoint and detects:
+- Prompt Injection
+- Jailbreaks
+- System Prompt Leakage
+- PII Extraction
+- Role Hijacking
+- API Key Exposure
+- Data Leakage
 
-## Output
-- Executive PDF report with findings table, business impact, and recommendations
-- JSON findings with MITRE ATT&CK and OWASP LLM Top 10 mappings
-- Risk scoring per probe
+Each finding is mapped to **MITRE ATLAS** and **OWASP LLM Top 10** frameworks.
 
-## Run a scan
+## Quick Start
 ```bash
-python cli.py run
+pip install -r requirements.txt
+python3 cli.py run --url http://your-llm-endpoint/chat
 ```
 
-## Generate PDF report
-```bash
-python cli.py report
-```
+## Built With
+- Python + FastAPI
+- Azure AI Foundry (Reasoning Agent)
+- MITRE ATLAS + OWASP LLM Top 10
 
-## Stack
-- Python 3.12
-- FastAPI
-- ReportLab
-- HTTPx
+## Hackathon
+Built for Microsoft Agents League Hackathon 2026 — Reasoning Agents track.
