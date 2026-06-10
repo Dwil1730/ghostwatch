@@ -37,28 +37,27 @@ def run(
         raise typer.Exit(1)
 
     data = result["data"]
-    results = data["results"]
+    unique_vulnerable = data["unique_vulnerable"]
 
     console.print(f"  Timestamp:   {data['timestamp']}")
     console.print(f"  Probes run:  {data['total_executed']}")
-    console.print(f"  Vulnerable:  [red]{data['total_vulnerable']}[/red]")
+    console.print(f"  Vulnerable:  [red]{data['total_vulnerable']}[/red] ({data['total_unique_vulnerable']} unique attack types)")
     console.print(f"  Safe:        [green]{data['total_safe']}[/green]")
     console.print(f"  Errors:      {data['total_errors']}")
     console.print()
 
-    vulnerable = [r for r in results if r["detection_status"] == "vulnerable"]
-
-    if not vulnerable:
+    if not unique_vulnerable:
         console.print("[green]No vulnerabilities detected.[/green]\n")
         raise typer.Exit(0)
 
-    console.print(f"[bold red]FINDINGS ({len(vulnerable)})[/bold red]\n")
+    console.print(f"[bold red]FINDINGS ({data['total_unique_vulnerable']} unique / {data['total_vulnerable']} total hits)[/bold red]\n")
 
     table = Table(show_header=True, header_style="bold", show_lines=True)
-    table.add_column("Probe", style="cyan", min_width=22)
+    table.add_column("Probe Type", style="cyan", min_width=22)
     table.add_column("Severity", min_width=10)
     table.add_column("Score", justify="right", min_width=6)
-    table.add_column("Indicators", min_width=30)
+    table.add_column("Sample Payload", min_width=35)
+    table.add_column("Indicators", min_width=25)
     table.add_column("MITRE", min_width=12)
     table.add_column("OWASP", min_width=8)
 
@@ -69,14 +68,15 @@ def run(
         "LOW": "white",
     }
 
-    for r in vulnerable:
+    for r in unique_vulnerable:
         sev = r["severity"]
         color = severity_colors.get(sev, "white")
         table.add_row(
             r["probe_type"],
             Text(sev, style=color),
             str(r["risk_score"]),
-            ", ".join(r["indicators"]),
+            r["payload"][:40] + "..." if len(r["payload"]) > 40 else r["payload"],
+            ", ".join(r["indicators"][:3]),
             r["mitre_id"],
             r["owasp_category"],
         )
@@ -88,7 +88,7 @@ def run(
 @app.command()
 def version():
     """Print version."""
-    console.print("Ghostwatch v0.1")
+    console.print("Ghostwatch v1.0")
 
 
 if __name__ == "__main__":

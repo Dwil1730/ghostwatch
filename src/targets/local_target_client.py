@@ -58,6 +58,6 @@ def execute_probes_concurrent(probes: list, url: str, max_workers: int = 10) -> 
             i = futures[future]
             results[i] = future.result()
             completed += 1
-            print(f"  [{completed}/{len(probes)}] {probes[i].get('attack_type','unknown')}", end="\r")
+            print(f"  [{completed}/{len(probes)}] {probes[i].get('attack_type', 'unknown'):30}", end="\r")
     print()
     return results

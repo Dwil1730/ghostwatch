@@ -1,6 +1,5 @@
 import os
 from datetime import datetime
-
 from src.core.probe_engine import execute_probes
 from src.targets.local_target_client import execute_probes_concurrent
 from src.analyzers.response_analyzer import analyze_response
@@ -38,20 +37,23 @@ def run_scan(filter_type=None, url=None, method="POST"):
                 "mitre_id": result.mitre_id,
                 "owasp_category": result.owasp_category,
                 "status_code": result.status_code,
+                "payload": result.payload,
                 "response_preview": analyzed["response_preview"],
                 "detection_status": "vulnerable" if analyzed["is_vulnerable"] else "safe",
             })
 
+        vulnerable = [r for r in results if r["detection_status"] == "vulnerable"]
+        errors = [r for r in results if r["detection_status"] == "error"]
+        safe = [r for r in results if r["detection_status"] == "safe"]
+
+        # Deduplicate by probe_type + severity for summary
         seen = set()
-vulnerable = []
-for r in results:
-    if r["detection_status"] == "vulnerable":
-        key = r["probe_type"] + r["severity"]
-        if key not in seen:
-            seen.add(key)
-            vulnerable.append(r)
-        errors     = [r for r in results if r["detection_status"] == "error"]
-        safe       = [r for r in results if r["detection_status"] == "safe"]
+        unique_vulnerable = []
+        for r in vulnerable:
+            key = (r["probe_type"], r["severity"])
+            if key not in seen:
+                seen.add(key)
+                unique_vulnerable.append(r)
 
         return {
             "status": "ok",
@@ -59,9 +61,11 @@ for r in results:
                 "timestamp": datetime.utcnow().isoformat() + "Z",
                 "total_executed": len(results),
                 "total_vulnerable": len(vulnerable),
+                "total_unique_vulnerable": len(unique_vulnerable),
                 "total_safe": len(safe),
                 "total_errors": len(errors),
                 "results": results,
+                "unique_vulnerable": unique_vulnerable,
             },
             "errors": [],
         }
