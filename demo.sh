@@ -1,5 +1,5 @@
 #!/bin/bash
-echo ""
+echo "GhostWatch demo — starts mock vulnerable target and runs full 125-probe scan"
 echo "╔══════════════════════════════════════════╗"
 echo "║         GHOSTWATCH AI SECURITY AGENT     ║"
 echo "║     LLM Vulnerability Scanner v1.0       ║"
