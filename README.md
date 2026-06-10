@@ -1,4 +1,4 @@
-# GhostWatch 👻
+# GhostWatch 
 
 **AI-powered LLM security scanner** — automatically probes AI APIs for vulnerabilities and generates risk-scored reports.
 
