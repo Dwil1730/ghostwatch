@@ -26,7 +26,7 @@ def run_scan(filter_type=None, url=None, method="POST"):
                 continue
             analyzed = analyze_response(
                 probe_type=result.probe_type,
-                payload=result.payload,
+payload=getattr(result, "payload", ""),
                 response_text=result.raw_response or ""
             )
             results.append({

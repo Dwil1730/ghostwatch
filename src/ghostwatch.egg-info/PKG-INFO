@@ -3,5 +3,7 @@ Name: ghostwatch
 Version: 0.1.0
 Summary: AI Security Probe Engine
 Requires-Python: >=3.10
+License-File: LICENSE
 Requires-Dist: typer
 Requires-Dist: rich
+Dynamic: license-file

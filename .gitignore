@@ -9,3 +9,8 @@ dump.rdb
 reports/
 *.pdf
 .env
+*.log
+reports/
+-d
+dump.rdb
+*.db

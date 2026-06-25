@@ -1,4 +1,5 @@
 __init__
+agents
 analyzers
 api
 config
@@ -6,6 +7,7 @@ core
 jobs
 models
 probes
+providers
 reporting
 targets
 utils

@@ -13,8 +13,8 @@ def execute_probe_request(probe: dict, target: TargetConfig) -> ProbeResult:
         mitre_id=probe.get("mitre_id", "unknown"),
         owasp_category=probe.get("owasp_category", "unknown"),
         severity=Severity.MEDIUM,
-        payload=probe.get("payload", ""),
-        target_url=target.url,
+payloads = probe.get("payload", [])
+payload = payloads[0] if isinstance(payloads, list) and payloads else ""        target_url=target.url,
     )
 
     try:
