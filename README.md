@@ -25,5 +25,3 @@ python3 cli.py run --url http://your-llm-endpoint/chat
 - Azure AI Foundry (Reasoning Agent)
 - MITRE ATLAS + OWASP LLM Top 10
 
-## Hackathon
-Built for Microsoft Agents League Hackathon 2026 — Reasoning Agents track.
