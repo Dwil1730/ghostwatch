@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "GhostWatch demo — starts mock vulnerable target and runs full 125-probe scan"
+echo "GhostWatch demo — starts mock vulnerable target and runs full 133-probe scan"
 echo "╔══════════════════════════════════════════╗"
 echo "║         GHOSTWATCH AI SECURITY AGENT     ║"
 echo "║     LLM Vulnerability Scanner v1.0       ║"
@@ -15,12 +15,12 @@ sleep 2
 echo ""
 echo "► Step 2: GhostWatch Agent discovering & scanning..."
 echo ""
-python3 cli.py run --url http://127.0.0.1:8000/chat
+python3 cli.py run --url http://127.0.0.1:8000
 
 echo ""
 echo "► Step 3: AI Reasoning Engine analyzing findings..."
 echo ""
-python3 run_agent.py http://127.0.0.1:8000/chat
+python3 run_agent.py http://127.0.0.1:8000
 
 echo ""
 echo "✅ GhostWatch scan complete."
