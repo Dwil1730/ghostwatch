@@ -4,16 +4,22 @@
 
 Auto-discovers LLM endpoints · Runs 133 adversarial probes · Generates evidence-verified risk-scored reports
 
+<<<<<<< HEAD
 ---
 
+=======
+>>>>>>> 74085c7 (Rebuild README: 133 probes, real findings, remove Azure AI Foundry and Hackathon)
 ## What Is GhostWatch?
 
 Most teams shipping AI features have no idea if their chatbot can be
 jailbroken, tricked into leaking data, or manipulated into disclosing
 internal configuration. GhostWatch finds that out before attackers do.
 
+<<<<<<< HEAD
 ---
 
+=======
+>>>>>>> 74085c7 (Rebuild README: 133 probes, real findings, remove Azure AI Foundry and Hackathon)
 ## Why GhostWatch vs. Garak / PyRIT / Promptfoo?
 
 | | GhostWatch | Garak (NVIDIA) | PyRIT (Microsoft) | Promptfoo |
@@ -22,8 +28,11 @@ internal configuration. GhostWatch finds that out before attackers do.
 | Output | Executive report + MITRE/OWASP | JSONL / HTML | Custom | HTML dashboard |
 | Best for | Consulting assessments | Research and model eval | Enterprise red teams | Dev pipeline gates |
 
+<<<<<<< HEAD
 ---
 
+=======
+>>>>>>> 74085c7 (Rebuild README: 133 probes, real findings, remove Azure AI Foundry and Hackathon)
 ## Live Demo Results
 
 GHOSTWATCH SECURITY SCAN
@@ -54,8 +63,11 @@ Errors: 0
 
 Assessment verdict: System should be considered fully compromised
 under adversarial conditions. Not safe for production deployment.
+<<<<<<< HEAD
 
 ---
+=======
+>>>>>>> 74085c7 (Rebuild README: 133 probes, real findings, remove Azure AI Foundry and Hackathon)
 
 ## Quick Start
 
@@ -66,13 +78,20 @@ pip install -r requirements.txt
 python3 cli.py run --url http://your-llm-endpoint/chat
 ```
 
+<<<<<<< HEAD
 Demo against mock vulnerable target:
+=======
+Demo:
+>>>>>>> 74085c7 (Rebuild README: 133 probes, real findings, remove Azure AI Foundry and Hackathon)
 ```bash
 ./demo.sh
 ```
 
+<<<<<<< HEAD
 ---
 
+=======
+>>>>>>> 74085c7 (Rebuild README: 133 probes, real findings, remove Azure AI Foundry and Hackathon)
 ## Attack Coverage
 
 | Category | MITRE ATLAS | OWASP |
@@ -87,32 +106,44 @@ Demo against mock vulnerable target:
 | Data Leakage | AML.T0057 | LLM02 |
 | Agentic Tool Abuse | AML.T0086 | LLM07 |
 
+<<<<<<< HEAD
 ---
 
+=======
+>>>>>>> 74085c7 (Rebuild README: 133 probes, real findings, remove Azure AI Foundry and Hackathon)
 ## Honest Scope
 
 GhostWatch tests LLM behavioral security at the application layer.
 Does not cover general API security, network scanning, RAG pipeline
 poisoning, multi-turn attacks, or authenticated sessions.
 
+<<<<<<< HEAD
 ---
 
+=======
+>>>>>>> 74085c7 (Rebuild README: 133 probes, real findings, remove Azure AI Foundry and Hackathon)
 ## Built With
 
 - Python 3.11 + FastAPI
 - MITRE ATLAS
 - OWASP LLM Top 10
 
+<<<<<<< HEAD
 ---
 
+=======
+>>>>>>> 74085c7 (Rebuild README: 133 probes, real findings, remove Azure AI Foundry and Hackathon)
 ## Authorization Notice
 
 Only run GhostWatch against systems you own or have explicit written
 authorization to test. Unauthorized scanning may violate the Computer
 Fraud and Abuse Act regardless of intent or findings.
 
+<<<<<<< HEAD
 ---
 
+=======
+>>>>>>> 74085c7 (Rebuild README: 133 probes, real findings, remove Azure AI Foundry and Hackathon)
 ## About
 
 Built by Chris Williams — Cloud Security Engineer with 10 years in
